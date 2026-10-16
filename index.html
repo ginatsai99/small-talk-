@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Small Talk 口說練習教材</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm-white: #FFFBF5;
+    --ink: #1A1208;
+    --amber: #D4820A;
+    --amber-light: #F0A832;
+    --amber-pale: #FEF0CC;
+    --teal: #1A6B6B;
+    --teal-light: #2A9090;
+    --teal-pale: #D4EDED;
+    --coral: #C94B2B;
+    --coral-pale: #FDEAE4;
+    --sage: #4A7A4A;
+    --sage-pale: #E4F0E4;
+    --border: #E8D8B8;
+    --shadow: rgba(26, 18, 8, 0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  header {
+    background: var(--ink);
+    padding: 40px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: var(--amber);
+    opacity: 0.15;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -40px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--teal);
+    opacity: 0.12;
+  }
+
+  .header-label {
+    font-family: 'Fira Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--amber-light);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    color: #FFF;
+    font-weight: 900;
+    line-height: 1.1;
+    position: relative;
+    z-index: 1;
+  }
+
+  header h1 span {
+    color: var(--amber-light);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: #B8A88A;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Topic Tabs */
+  .topic-nav {
+    background: var(--ink);
+    padding: 0 16px 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .topic-btn {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: #C0A878;
+    padding: 8px 18px;
+    border-radius: 24px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .topic-btn:hover { border-color: var(--amber-light); color: var(--amber-light); }
+  .topic-btn.active {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: #FFF;
+    font-weight: 700;
+  }
+
+  /* Main Content */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+
+  /* Topic Section */
+  .topic-section { display: none; }
+  .topic-section.active { display: block; }
+
+  .topic-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .topic-icon {
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .topic-title-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .topic-title-block p {
+    font-size: 13px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  /* Card Sections */
+  .card-section {
+    margin-bottom: 28px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--warm-white);
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .card-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .card-header:hover { filter: brightness(0.97); }
+
+  .card-header .tag {
+    font-family: 'Fira Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .vocab-header { background: var(--amber-pale); color: var(--amber); }
+  .vocab-header .tag { background: var(--amber); color: #fff; }
+
+  .phrase-header { background: var(--teal-pale); color: var(--teal); }
+  .phrase-header .tag { background: var(--teal); color: #fff; }
+
+  .grammar-header { background: var(--coral-pale); color: var(--coral); }
+  .grammar-header .tag { background: var(--coral); color: #fff; }
+
+  .dialogue-header { background: var(--sage-pale); color: var(--sage); }
+  .dialogue-header .tag { background: var(--sage); color: #fff; }
+
+  .arrow {
+    margin-left: auto;
+    font-size: 16px;
+    transition: transform 0.3s;
+  }
+  .card-section.open .arrow { transform: rotate(180deg); }
+
+  .card-body {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .card-section.open .card-body {
+    max-height: 2000px;
+    padding: 0 20px 20px;
+  }
+
+  /* Vocabulary Grid */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .vocab-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    position: relative;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow); }
+
+  .vocab-en {
+    font-family: 'Fira Mono', monospace;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--amber);
+  }
+  .vocab-pron {
+    font-size: 11px;
+    color: #999;
+    margin: 2px 0 4px;
+  }
+  .vocab-zh {
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .vocab-example {
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+    font-style: italic;
+    line-height: 1.5;
+    border-top: 1px dashed #E0D0B0;
+    padding-top: 6px;
+  }
+  .vocab-example span { color: var(--amber); font-style: normal; font-weight: 500; }
+
+  /* Phrases */
+  .phrase-list { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  .phrase-item {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-left: 4px solid var(--teal-light);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .phrase-en {
+    font-family: 'Fira Mono', monospace;
+    font-size: 14px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .phrase-zh {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  .phrase-use {
+    font-size: 12px;
+    color: #888;
+    background: var(--teal-pale);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  /* Grammar */
+  .grammar-list { margin-top: 12px; display: flex; flex-direction: column; gap: 14px; }
+
+  .grammar-item {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .grammar-pattern {
+    font-family: 'Fira Mono', monospace;
+    font-size: 13px;
+    background: var(--coral-pale);
+    color: var(--coral);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  .grammar-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .grammar-note {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .grammar-examples { display: flex; flex-direction: column; gap: 6px; }
+  .grammar-ex {
+    font-size: 13px;
+    padding: 6px 10px;
+    background: #F8F4EE;
+    border-radius: 6px;
+  }
+  .grammar-ex .en { color: var(--coral); font-weight: 500; }
+  .grammar-ex .zh { color: #666; font-size: 12px; margin-top: 2px; }
+
+  /* Dialogue */
+  .dialogue-box {
+    margin-top: 12px;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .dialogue-context {
+    font-size: 12px;
+    color: #888;
+    background: var(--sage-pale);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .dialogue-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .speaker {
+    font-family: 'Fira Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    min-width: 28px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 3px;
+  }
+  .speaker-a { background: var(--amber-pale); color: var(--amber); }
+  .speaker-b { background: var(--teal-pale); color: var(--teal); }
+
+  .line-content .en {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .line-content .zh {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  .tip-box {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--amber-pale);
+    border-radius: 8px;
+    border-left: 4px solid var(--amber);
+  }
+  .tip-box strong { font-size: 12px; color: var(--amber); display: block; margin-bottom: 4px; }
+  .tip-box p { font-size: 13px; color: #555; line-height: 1.6; }
+
+  /* Practice prompt */
+  .practice-prompt {
+    margin-top: 28px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .practice-prompt h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--amber-light);
+  }
+  .practice-prompt ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .practice-prompt li {
+    font-size: 13px;
+    color: #CCC;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .practice-prompt li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .vocab-grid { grid-template-columns: 1fr; }
+    .topic-nav { gap: 6px; }
+    .topic-btn { font-size: 12px; padding: 7px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Taiwan English Learners · Speaking Practice</div>
+  <h1>小聊天大學問<br><span>Small Talk</span> 口說練習</h1>
+  <p class="header-sub">單字 · 片語 · 文法句型 · 情境對話</p>
+</header>
+
+<nav class="topic-nav">
+  <button class="topic-btn active" onclick="switchTopic('weather')">🌤 天氣</button>
+  <button class="topic-btn" onclick="switchTopic('weekend')">🎉 週末計劃</button>
+  <button class="topic-btn" onclick="switchTopic('food')">🍜 食物</button>
+  <button class="topic-btn" onclick="switchTopic('work')">💼 工作</button>
+  <button class="topic-btn" onclick="switchTopic('compliment')">😊 稱讚</button>
+</nav>
+
+<div class="container">
+
+  <!-- ===== WEATHER ===== -->
+  <div class="topic-section active" id="topic-weather">
+    <div class="topic-header">
+      <div class="topic-icon">🌤</div>
+      <div class="topic-title-block">
+        <h2>Weather 天氣話題</h2>
+        <p>最自然的開場白 · 任何場合都適用</p>
+      </div>
+    </div>
+
+    <div class="card-section open" id="vocab-weather">
+      <div class="card-header vocab-header" onclick="toggleCard('vocab-weather')">
+        <span class="tag">Vocab</span> 重點單字
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="vocab-grid">
+          <div class="vocab-card">
+            <div class="vocab-en">humid</div>
+            <div class="vocab-pron">/ˈhjuːmɪd/</div>
+            <div class="vocab-zh">潮濕的</div>
+            <div class="vocab-example">It's so <span>humid</span> today — my hair is a mess!</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">scorching</div>
+            <div class="vocab-pron">/ˈskɔːrtʃɪŋ/</div>
+            <div class="vocab-zh">酷熱的</div>
+            <div class="vocab-example">It's <span>scorching</span> out there. Did you bring water?</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">refreshing</div>
+            <div class="vocab-pron">/rɪˈfrɛʃɪŋ/</div>
+            <div class="vocab-zh">清爽的、提神的</div>
+            <div class="vocab-example">The breeze this morning was really <span>refreshing</span>.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">chilly</div>
+            <div class="vocab-pron">/ˈtʃɪli/</div>
+            <div class="vocab-zh">涼颼颼的</div>
+            <div class="vocab-example">It's a bit <span>chilly</span> today. Did you bring a jacket?</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">pour</div>
+            <div class="vocab-pron">/pɔːr/</div>
+            <div class="vocab-zh">（雨）傾盆而下</div>
+            <div class="vocab-example">It started to <span>pour</span> on my way home.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">forecast</div>
+            <div class="vocab-pron">/ˈfɔːrkæst/</div>
+            <div class="vocab-zh">天氣預報</div>
+            <div class="vocab-example">The <span>forecast</span> says it'll rain all week.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="phrase-weather">
+      <div class="card-header phrase-header" onclick="toggleCard('phrase-weather')">
+        <span class="tag">Phrases</span> 實用片語
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="phrase-list">
+          <div class="phrase-item">
+            <div class="phrase-en">Can you believe this weather?</div>
+            <div class="phrase-zh">這天氣真是不可思議吧？</div>
+            <div class="phrase-use">💬 開啟話題</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">It's supposed to be sunny later.</div>
+            <div class="phrase-zh">待會應該會放晴。</div>
+            <div class="phrase-use">💬 表達預期</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I got caught in the rain.</div>
+            <div class="phrase-zh">我被雨淋到了。</div>
+            <div class="phrase-use">💬 敘述遭遇</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I'm melting in this heat!</div>
+            <div class="phrase-zh">這熱度讓我快融化了！</div>
+            <div class="phrase-use">💬 誇飾表達（幽默）</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">Perfect weather for staying indoors.</div>
+            <div class="phrase-zh">這種天氣最適合待在家。</div>
+            <div class="phrase-use">💬 輕鬆表達感受</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="grammar-weather">
+      <div class="card-header grammar-header" onclick="toggleCard('grammar-weather')">
+        <span class="tag">Grammar</span> 文法句型
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <div class="grammar-pattern">It's + 形容詞 + out (there).</div>
+            <div class="grammar-title">描述當下天氣感受</div>
+            <div class="grammar-note">💡 "out" 或 "out there" 表示「外面」，讓句子更口語自然。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">It's freezing out! Don't forget your coat.</div>
+                <div class="zh">外面超冷！別忘了帶外套。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">It's beautiful out there today.</div>
+                <div class="zh">今天外面天氣很好。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">It looks like + 名詞片語 / it's going to + V.</div>
+            <div class="grammar-title">推測未來天氣</div>
+            <div class="grammar-note">💡 "It looks like" 根據眼前情況推測，比 "I think" 更生動。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">It looks like rain. We should head inside.</div>
+                <div class="zh">看起來要下雨了，我們該進去了。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">It looks like it's going to be a hot one today.</div>
+                <div class="zh">今天看起來會很熱。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">I can't believe how + 形容詞 + it is!</div>
+            <div class="grammar-title">表達驚訝或誇張感受</div>
+            <div class="grammar-note">💡 這個句型可以增加對話活力，讓你聽起來更自然！</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I can't believe how hot it is for October!</div>
+                <div class="zh">十月竟然這麼熱，真不敢相信！</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">I can't believe how nice the weather is today.</div>
+                <div class="zh">今天天氣好得令人難以置信。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="dialogue-weather">
+      <div class="card-header dialogue-header" onclick="toggleCard('dialogue-weather')">
+        <span class="tag">Dialogue</span> 情境對話
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="dialogue-box">
+          <div class="dialogue-context">📍 場景：辦公室電梯裡，與同事第一次閒聊</div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Can you believe this weather? It's scorching outside!</div>
+              <div class="zh">這天氣真的誇張，外面超熱的！</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">I know, right? I got completely drenched on my way to the MRT.</div>
+              <div class="zh">我知道！我去搭捷運的路上被淋成落湯雞。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh no! Did you check the forecast? It looks like it's going to rain all week.</div>
+              <div class="zh">噢不！你有看天氣預報嗎？看起來整週都會下雨。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Ugh, perfect weather for just staying in with a cup of tea, right?</div>
+              <div class="zh">唉，這種天氣就很適合窩在家泡杯茶呢。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Totally! Anyway, hope the rest of your day stays dry!</div>
+              <div class="zh">完全同意！希望你今天剩下的時間不要再被淋到了！</div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🗣 口說小技巧</strong>
+            <p>天氣話題最大的優點是「結束方式靈活」—— 你可以用 "Anyway..." 自然結束對話，完全不尷尬！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-prompt">
+      <h4>🎯 開口練習題</h4>
+      <ul>
+        <li>今天的天氣讓你想到什麼？試著用 "I can't believe how..." 描述。</li>
+        <li>你最喜歡哪種天氣？為什麼？用 "I love it when it's..." 造句。</li>
+        <li>和朋友分享一次被雨淋到的糗事，用 "I got caught in the rain when..."</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== WEEKEND ===== -->
+  <div class="topic-section" id="topic-weekend">
+    <div class="topic-header">
+      <div class="topic-icon">🎉</div>
+      <div class="topic-title-block">
+        <h2>Weekend Plans 週末計劃</h2>
+        <p>週一問候 / 週五期待 · 聊出好感情</p>
+      </div>
+    </div>
+
+    <div class="card-section open" id="vocab-weekend">
+      <div class="card-header vocab-header" onclick="toggleCard('vocab-weekend')">
+        <span class="tag">Vocab</span> 重點單字
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="vocab-grid">
+          <div class="vocab-card">
+            <div class="vocab-en">catch up</div>
+            <div class="vocab-pron">/kætʃ ʌp/</div>
+            <div class="vocab-zh">敘舊、補進度</div>
+            <div class="vocab-example">I'm going to <span>catch up</span> with some old friends this weekend.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">unwind</div>
+            <div class="vocab-pron">/ˌʌnˈwaɪnd/</div>
+            <div class="vocab-zh">放鬆、紓壓</div>
+            <div class="vocab-example">I just want to <span>unwind</span> and do nothing this weekend.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">spontaneous</div>
+            <div class="vocab-pron">/spɑːnˈteɪniəs/</div>
+            <div class="vocab-zh">自發的、臨時起意的</div>
+            <div class="vocab-example">We were <span>spontaneous</span> — we just drove to the mountains!</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">binge-watch</div>
+            <div class="vocab-pron">/bɪndʒ wɑːtʃ/</div>
+            <div class="vocab-zh">一口氣追劇</div>
+            <div class="vocab-example">I <span>binge-watched</span> a whole series in one day.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">low-key</div>
+            <div class="vocab-pron">/ˌloʊˈkiː/</div>
+            <div class="vocab-zh">低調的、輕鬆休閒的</div>
+            <div class="vocab-example">We kept it pretty <span>low-key</span> — just dinner at home.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">packed</div>
+            <div class="vocab-pron">/pækt/</div>
+            <div class="vocab-zh">很忙碌的、擠滿的</div>
+            <div class="vocab-example">My weekend is totally <span>packed</span>. No rest for me!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="phrase-weekend">
+      <div class="card-header phrase-header" onclick="toggleCard('phrase-weekend')">
+        <span class="tag">Phrases</span> 實用片語
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="phrase-list">
+          <div class="phrase-item">
+            <div class="phrase-en">Any fun plans for the weekend?</div>
+            <div class="phrase-zh">週末有什麼好玩的計劃嗎？</div>
+            <div class="phrase-use">💬 週五開啟話題</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">How was your weekend?</div>
+            <div class="phrase-zh">你週末過得怎麼樣？</div>
+            <div class="phrase-use">💬 週一開啟話題</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I ended up just staying home.</div>
+            <div class="phrase-zh">我最後還是待在家了。</div>
+            <div class="phrase-use">💬 說明臨時改變計劃</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">Nothing special, just relaxing.</div>
+            <div class="phrase-zh">沒什麼特別的，就放鬆一下。</div>
+            <div class="phrase-use">💬 週末沒出門的回應</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">We're thinking of checking out that new night market.</div>
+            <div class="phrase-zh">我們打算去看看那個新夜市。</div>
+            <div class="phrase-use">💬 分享計劃</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="grammar-weekend">
+      <div class="card-header grammar-header" onclick="toggleCard('grammar-weekend')">
+        <span class="tag">Grammar</span> 文法句型
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <div class="grammar-pattern">I'm thinking of / I'm planning to + V原形</div>
+            <div class="grammar-title">說明週末計劃（不確定 vs 確定）</div>
+            <div class="grammar-note">💡 "thinking of" 表示「在考慮」較不確定；"planning to" 表示「已計劃」更明確。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I'm thinking of going hiking if the weather's nice.</div>
+                <div class="zh">如果天氣好的話，我在考慮去爬山。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">I'm planning to visit my family in Tainan.</div>
+                <div class="zh">我計劃去台南看家人。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">I ended up + V-ing</div>
+            <div class="grammar-title">說明「最後結果跟原本不同」</div>
+            <div class="grammar-note">💡 "ended up" 是超好用的片語，表示「結果（出乎意料地）做了某事」。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I was going to go out, but I ended up staying home.</div>
+                <div class="zh">我本來要出門，結果待在家了。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">We ended up eating at this amazing ramen place.</div>
+                <div class="zh">我們最後去吃了一家超棒的拉麵店。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">That sounds + 形容詞 (+ !)  / That sounds like + 名詞</div>
+            <div class="grammar-title">回應別人的計劃或分享</div>
+            <div class="grammar-note">💡 這是 small talk 的關鍵技巧——好的「回應」比開口還重要！</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">That sounds amazing! I've always wanted to do that.</div>
+                <div class="zh">聽起來太棒了！我一直想做這件事。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">That sounds like a lot of fun. Did you enjoy it?</div>
+                <div class="zh">聽起來很好玩。你有玩得開心嗎？</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="dialogue-weekend">
+      <div class="card-header dialogue-header" onclick="toggleCard('dialogue-weekend')">
+        <span class="tag">Dialogue</span> 情境對話
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="dialogue-box">
+          <div class="dialogue-context">📍 場景：週一早上，茶水間遇到外國同事</div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Hey! How was your weekend?</div>
+              <div class="zh">嘿！你週末過得怎樣？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Pretty good! I ended up going to Jiufen. Have you been there?</div>
+              <div class="zh">還不錯！我最後去了九份。你去過嗎？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh, that sounds so nice! I haven't been in ages. Was it crowded?</div>
+              <div class="zh">哇，聽起來好棒！我好久沒去了。人多嗎？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">A little, but we went early so it wasn't too bad. What about you?</div>
+              <div class="zh">有一點，但我們去得早所以還好。你呢？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Me? I just kept it low-key — caught up on sleep and binge-watched a show.</div>
+              <div class="zh">我嗎？就低調過，把覺補回來，然後追了一部劇。</div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🗣 口說小技巧</strong>
+            <p>記得反問 "What about you?"！這是維持對話最簡單的方法，讓對方知道你有在聽，也讓話題繼續。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-prompt">
+      <h4>🎯 開口練習題</h4>
+      <ul>
+        <li>描述你上個週末做了什麼，試著用 "I ended up..." 說明過程。</li>
+        <li>問朋友週末的計劃，並用 "That sounds..." 回應他的答案。</li>
+        <li>用英文說出你夢想中的週末會怎麼過，用 "I'd love to..." 開頭。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== FOOD ===== -->
+  <div class="topic-section" id="topic-food">
+    <div class="topic-header">
+      <div class="topic-icon">🍜</div>
+      <div class="topic-title-block">
+        <h2>Food 食物話題</h2>
+        <p>台灣人的強項 · 最容易打開話匣子的話題</p>
+      </div>
+    </div>
+
+    <div class="card-section open" id="vocab-food">
+      <div class="card-header vocab-header" onclick="toggleCard('vocab-food')">
+        <span class="tag">Vocab</span> 重點單字
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="vocab-grid">
+          <div class="vocab-card">
+            <div class="vocab-en">savory</div>
+            <div class="vocab-pron">/ˈseɪvəri/</div>
+            <div class="vocab-zh">鹹香的、美味的</div>
+            <div class="vocab-example">I prefer <span>savory</span> breakfast over sweet.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">addictive</div>
+            <div class="vocab-pron">/əˈdɪktɪv/</div>
+            <div class="vocab-zh">令人上癮的</div>
+            <div class="vocab-example">This bubble tea is seriously <span>addictive</span>.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">portion</div>
+            <div class="vocab-pron">/ˈpɔːrʃn/</div>
+            <div class="vocab-zh">份量</div>
+            <div class="vocab-example">The <span>portions</span> here are huge — great value!</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">hidden gem</div>
+            <div class="vocab-pron">/ˈhɪdn dʒɛm/</div>
+            <div class="vocab-zh">隱藏版美食／秘密景點</div>
+            <div class="vocab-example">There's a <span>hidden gem</span> near the office — best beef noodles ever.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">texture</div>
+            <div class="vocab-pron">/ˈtɛkstʃər/</div>
+            <div class="vocab-zh">口感</div>
+            <div class="vocab-example">I love the chewy <span>texture</span> of bubble tea pearls.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">indulge</div>
+            <div class="vocab-pron">/ɪnˈdʌldʒ/</div>
+            <div class="vocab-zh">放縱、縱情享用</div>
+            <div class="vocab-example">I <span>indulged</span> in a massive hot pot last night.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="phrase-food">
+      <div class="card-header phrase-header" onclick="toggleCard('phrase-food')">
+        <span class="tag">Phrases</span> 實用片語
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="phrase-list">
+          <div class="phrase-item">
+            <div class="phrase-en">Have you tried...? You have to try it!</div>
+            <div class="phrase-zh">你試過⋯嗎？你一定要試試看！</div>
+            <div class="phrase-use">💬 推薦食物</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I'm a huge fan of Taiwanese street food.</div>
+            <div class="phrase-zh">我超愛台灣街頭小吃的。</div>
+            <div class="phrase-use">💬 表達喜好</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">It's hard to explain — you just have to taste it.</div>
+            <div class="phrase-zh">很難解釋，你就是得親自嚐嚐。</div>
+            <div class="phrase-use">💬 介紹特色食物</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I was craving [something] all day.</div>
+            <div class="phrase-zh">我想吃⋯想了一整天。</div>
+            <div class="phrase-use">💬 表達強烈渴望</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">Do you know any good spots around here?</div>
+            <div class="phrase-zh">你知道這附近有什麼好吃的嗎？</div>
+            <div class="phrase-use">💬 尋求推薦</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="grammar-food">
+      <div class="card-header grammar-header" onclick="toggleCard('grammar-food')">
+        <span class="tag">Grammar</span> 文法句型
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <div class="grammar-pattern">It tastes like + 名詞 / It reminds me of + 名詞</div>
+            <div class="grammar-title">描述食物味道與感受</div>
+            <div class="grammar-note">💡 "reminds me of" 讓你的描述更有故事感，能引發共鳴。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">It tastes like a mix of soy sauce and vinegar — super unique.</div>
+                <div class="zh">嚐起來像醬油和醋的混合，非常獨特。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">This reminds me of what my grandma used to make.</div>
+                <div class="zh">這讓我想起我奶奶以前做的東西。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">I'm not a huge fan of..., but I love...</div>
+            <div class="grammar-title">表達飲食喜好（有禮貌地說不喜歡）</div>
+            <div class="grammar-note">💡 "not a huge fan" 比 "I hate" 溫和很多，在社交場合更得體。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I'm not a huge fan of spicy food, but I love the flavor of scallion pancakes.</div>
+                <div class="zh">我不是很能吃辣，但我很愛蔥油餅的味道。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">You should definitely check out + 地點 / try + 食物.</div>
+            <div class="grammar-title">強烈推薦</div>
+            <div class="grammar-note">💡 "definitely" 加強語氣，表示你真心推薦，不是客套。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">You should definitely check out Ningxia Night Market.</div>
+                <div class="zh">你絕對應該去看看寧夏夜市。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">You should definitely try stinky tofu at least once!</div>
+                <div class="zh">臭豆腐你至少要試一次！</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="dialogue-food">
+      <div class="card-header dialogue-header" onclick="toggleCard('dialogue-food')">
+        <span class="tag">Dialogue</span> 情境對話
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="dialogue-box">
+          <div class="dialogue-context">📍 場景：和外國朋友一起逛夜市</div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh wow, what is that smell? It's... interesting.</div>
+              <div class="zh">哇，那是什麼味道？有點⋯特別。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Ha! That's stinky tofu. It smells strong but it tastes amazing. You should definitely try it!</div>
+              <div class="zh">哈！那是臭豆腐。聞起來很重，但吃起來超好吃。你一定要試試！</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Hmm, I'm a little nervous... but okay, I'll be adventurous!</div>
+              <div class="zh">嗯，我有點緊張⋯但好吧，我來挑戰一下！</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Yes! It's crispy on the outside and soft inside. It reminds me of really good fried tofu.</div>
+              <div class="zh">太好了！外脆內嫩。讓我想起很棒的炸豆腐。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh wow — this is actually really good! I was totally judging it by the smell.</div>
+              <div class="zh">哇——這真的很好吃！我完全被它的味道騙了。</div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🗣 口說小技巧</strong>
+            <p>介紹台灣食物時，先說外觀或口感，再給外國朋友心理準備——這樣他們接受度會更高，話題也更有趣！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-prompt">
+      <h4>🎯 開口練習題</h4>
+      <ul>
+        <li>用英文介紹你最喜歡的台灣食物給外國朋友，用 "It tastes like..." 描述。</li>
+        <li>你最近吃過最好吃的東西是什麼？試著推薦給別人。</li>
+        <li>如果有外國朋友來台灣，你會帶他去哪家餐廳？為什麼？</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== WORK ===== -->
+  <div class="topic-section" id="topic-work">
+    <div class="topic-header">
+      <div class="topic-icon">💼</div>
+      <div class="topic-title-block">
+        <h2>Work 工作話題</h2>
+        <p>職場英文 · 輕鬆不正式的聊法</p>
+      </div>
+    </div>
+
+    <div class="card-section open" id="vocab-work">
+      <div class="card-header vocab-header" onclick="toggleCard('vocab-work')">
+        <span class="tag">Vocab</span> 重點單字
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="vocab-grid">
+          <div class="vocab-card">
+            <div class="vocab-en">swamped</div>
+            <div class="vocab-pron">/swæmpt/</div>
+            <div class="vocab-zh">忙得不可開交</div>
+            <div class="vocab-example">I've been totally <span>swamped</span> this week.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">wrap up</div>
+            <div class="vocab-pron">/ræp ʌp/</div>
+            <div class="vocab-zh">結束、收尾</div>
+            <div class="vocab-example">We just need to <span>wrap up</span> this project.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">deadline</div>
+            <div class="vocab-pron">/ˈdɛdlaɪn/</div>
+            <div class="vocab-zh">截止日期</div>
+            <div class="vocab-example">I have a tight <span>deadline</span> tomorrow.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">burned out</div>
+            <div class="vocab-pron">/bɜːrnd aʊt/</div>
+            <div class="vocab-zh">精疲力竭、過勞</div>
+            <div class="vocab-example">I'm a bit <span>burned out</span> after this quarter.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">rewarding</div>
+            <div class="vocab-pron">/rɪˈwɔːrdɪŋ/</div>
+            <div class="vocab-zh">有成就感的</div>
+            <div class="vocab-example">It's challenging, but really <span>rewarding</span> work.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">on the same page</div>
+            <div class="vocab-pron">/ɒn ðə seɪm peɪdʒ/</div>
+            <div class="vocab-zh">達成共識</div>
+            <div class="vocab-example">Let's make sure we're all <span>on the same page</span>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="phrase-work">
+      <div class="card-header phrase-header" onclick="toggleCard('phrase-work')">
+        <span class="tag">Phrases</span> 實用片語
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="phrase-list">
+          <div class="phrase-item">
+            <div class="phrase-en">How's work been lately?</div>
+            <div class="phrase-zh">最近工作怎麼樣？</div>
+            <div class="phrase-use">💬 開場問候</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">It's been a bit crazy lately.</div>
+            <div class="phrase-zh">最近有點瘋狂。</div>
+            <div class="phrase-use">💬 表達忙碌</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I'm finally starting to see the light at the end of the tunnel.</div>
+            <div class="phrase-zh">我終於開始看到隧道盡頭的光了。（快撐過去了）</div>
+            <div class="phrase-use">💬 表示即將結束忙碌期</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I really needed this break.</div>
+            <div class="phrase-zh">我真的需要這個休息。</div>
+            <div class="phrase-use">💬 表達放鬆的心情</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">What do you do for work?</div>
+            <div class="phrase-zh">你是做什麼工作的？</div>
+            <div class="phrase-use">💬 詢問職業（初次見面）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="grammar-work">
+      <div class="card-header grammar-header" onclick="toggleCard('grammar-work')">
+        <span class="tag">Grammar</span> 文法句型
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <div class="grammar-pattern">I've been + V-ing a lot lately.</div>
+            <div class="grammar-title">描述近期持續狀態（現在完成進行式）</div>
+            <div class="grammar-note">💡 這個句型最能表達「最近一直在做某事」，比 "I do" 更自然！</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I've been working late a lot lately. I'm exhausted.</div>
+                <div class="zh">我最近一直工作到很晚。我累壞了。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">I've been traveling for work — barely home.</div>
+                <div class="zh">我最近一直在出差，幾乎沒在家。</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">What do you do? / What kind of work do you do?</div>
+            <div class="grammar-title">詢問職業（初次見面常用）</div>
+            <div class="grammar-note">💡 回答時可以用 "I work in + 行業" 或 "I'm a + 職稱"，很靈活。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">I work in marketing at a tech company.</div>
+                <div class="zh">我在一家科技公司做行銷。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">I'm in education — I teach at a cram school.</div>
+                <div class="zh">我是教育業，在補習班教書。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="dialogue-work">
+      <div class="card-header dialogue-header" onclick="toggleCard('dialogue-work')">
+        <span class="tag">Dialogue</span> 情境對話
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="dialogue-box">
+          <div class="dialogue-context">📍 場景：在朋友聚會上，第一次見到朋友的外國同事</div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">So, what do you do for work?</div>
+              <div class="zh">你是做什麼工作的？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">I work in UX design. Basically, I help make apps easier to use. What about you?</div>
+              <div class="zh">我做使用者體驗設計。簡單說，就是讓應用程式更好用。你呢？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh, that sounds really interesting! I'm in accounting. Not the most exciting job, but it pays the bills!</div>
+              <div class="zh">哇，聽起來很有趣！我做會計。不是最刺激的工作，但夠養家！</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Ha, I get that! Has work been busy lately?</div>
+              <div class="zh">哈，懂！最近工作忙嗎？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">So busy! I've been working overtime every day this month. But hopefully things will calm down soon.</div>
+              <div class="zh">超忙！這個月每天都加班。但希望快快就會平靜下來。</div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🗣 口說小技巧</strong>
+            <p>用幽默降低話題壓力，例如 "Not the most exciting, but..." 不但誠實，也很好笑，讓對話更輕鬆！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-prompt">
+      <h4>🎯 開口練習題</h4>
+      <ul>
+        <li>用英文介紹你的工作，用 "I work in..." 或 "I'm a..."，再加一句說明你的工作內容。</li>
+        <li>用 "I've been..." 說說你最近的工作狀況。</li>
+        <li>如果有人問你 "How's work been?"，試著給出完整的2-3句回答。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== COMPLIMENT ===== -->
+  <div class="topic-section" id="topic-compliment">
+    <div class="topic-header">
+      <div class="topic-icon">😊</div>
+      <div class="topic-title-block">
+        <h2>Compliments 稱讚與回應</h2>
+        <p>給讚美、接受讚美 · 英語社交的潤滑劑</p>
+      </div>
+    </div>
+
+    <div class="card-section open" id="vocab-compliment">
+      <div class="card-header vocab-header" onclick="toggleCard('vocab-compliment')">
+        <span class="tag">Vocab</span> 重點單字
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="vocab-grid">
+          <div class="vocab-card">
+            <div class="vocab-en">compliment</div>
+            <div class="vocab-pron">/ˈkɒmplɪmənt/</div>
+            <div class="vocab-zh">稱讚（名詞）</div>
+            <div class="vocab-example">That's such a nice <span>compliment</span>, thank you!</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">flattering</div>
+            <div class="vocab-pron">/ˈflætərɪŋ/</div>
+            <div class="vocab-zh">令人受寵若驚的</div>
+            <div class="vocab-example">That's very <span>flattering</span>, I really appreciate it.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">pull off</div>
+            <div class="vocab-pron">/pʊl ɒf/</div>
+            <div class="vocab-zh">穿搭好看、成功做到</div>
+            <div class="vocab-example">Not everyone can <span>pull off</span> that style, but you do!</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">genuine</div>
+            <div class="vocab-pron">/ˈdʒɛnjuɪn/</div>
+            <div class="vocab-zh">真誠的</div>
+            <div class="vocab-example">I mean it — it was a <span>genuine</span> compliment.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">stand out</div>
+            <div class="vocab-pron">/stænd aʊt/</div>
+            <div class="vocab-zh">突出、出眾</div>
+            <div class="vocab-example">Your presentation really <span>stood out</span> today.</div>
+          </div>
+          <div class="vocab-card">
+            <div class="vocab-en">thoughtful</div>
+            <div class="vocab-pron">/ˈθɔːtfəl/</div>
+            <div class="vocab-zh">體貼的、用心的</div>
+            <div class="vocab-example">That was so <span>thoughtful</span> of you to remember.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="phrase-compliment">
+      <div class="card-header phrase-header" onclick="toggleCard('phrase-compliment')">
+        <span class="tag">Phrases</span> 實用片語
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="phrase-list">
+          <div class="phrase-item">
+            <div class="phrase-en">I love your [outfit / bag / shoes]!</div>
+            <div class="phrase-zh">我好喜歡你的（穿搭/包包/鞋子）！</div>
+            <div class="phrase-use">💬 給外觀稱讚</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">You did a great job on [the presentation / the project].</div>
+            <div class="phrase-zh">你在（報告/專案）上表現很棒。</div>
+            <div class="phrase-use">💬 讚美工作表現</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">That's so kind of you to say!</div>
+            <div class="phrase-zh">你真是太好心了這樣說！（接受讚美）</div>
+            <div class="phrase-use">💬 回應讚美</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">Aw, you're too kind!</div>
+            <div class="phrase-zh">哎呀，你太客氣了！</div>
+            <div class="phrase-use">💬 回應讚美（輕鬆口氣）</div>
+          </div>
+          <div class="phrase-item">
+            <div class="phrase-en">I got it from [a little shop in Yongkang Street].</div>
+            <div class="phrase-zh">我在（永康街的一家小店）買的。</div>
+            <div class="phrase-use">💬 被稱讚後分享來源</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="grammar-compliment">
+      <div class="card-header grammar-header" onclick="toggleCard('grammar-compliment')">
+        <span class="tag">Grammar</span> 文法句型
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <div class="grammar-pattern">Your + 名詞 + is / looks + 形容詞!</div>
+            <div class="grammar-title">給具體稱讚</div>
+            <div class="grammar-note">💡 具體的讚美比空泛的 "You're great!" 更真誠，對方更願意回應。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">Your English is really natural! Did you study abroad?</div>
+                <div class="zh">你的英文真的很自然！你有出國唸書嗎？</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">Your bag looks so stylish — where did you get it?</div>
+                <div class="zh">你的包包看起來超有型，在哪買的？</div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <div class="grammar-pattern">Thank you! I + [additional info or return compliment].</div>
+            <div class="grammar-title">接受讚美的標準公式</div>
+            <div class="grammar-note">💡 台灣人常常說 "No, no..." 來謙虛，但這在英語文化中有點奇怪。直接說 "Thank you!" 更自然！加上一句話回應效果更好。</div>
+            <div class="grammar-examples">
+              <div class="grammar-ex">
+                <div class="en">Thank you! I got it on sale — super lucky find.</div>
+                <div class="zh">謝謝！我特價買到的，運氣超好。</div>
+              </div>
+              <div class="grammar-ex">
+                <div class="en">Thank you so much! That really means a lot to me.</div>
+                <div class="zh">非常謝謝你！這對我來說真的很有意義。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-section open" id="dialogue-compliment">
+      <div class="card-header dialogue-header" onclick="toggleCard('dialogue-compliment')">
+        <span class="tag">Dialogue</span> 情境對話
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="dialogue-box">
+          <div class="dialogue-context">📍 場景：在派對上，認識新朋友時給出讚美</div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Hey, I love your jacket! That color looks amazing on you.</div>
+              <div class="zh">嘿，我好喜歡你的外套！那個顏色穿在你身上超好看。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">Aw, thank you! I almost didn't buy it — I wasn't sure if I could pull it off.</div>
+              <div class="zh">哎呀，謝謝！我差點沒買它，不確定自己能不能駕馭。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">You totally can! Where did you get it?</div>
+              <div class="zh">你完全可以！在哪裡買的？</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-b">B</span>
+            <div class="line-content">
+              <div class="en">There's this little vintage shop near Zhongshan — I found it on a random walk. I love it there.</div>
+              <div class="zh">中山附近有家小古著店，我亂走時發現的。我超愛那家。</div>
+            </div>
+          </div>
+          <div class="dialogue-line">
+            <span class="speaker speaker-a">A</span>
+            <div class="line-content">
+              <div class="en">Oh, I need to check it out! By the way, I'm Alex.</div>
+              <div class="zh">哦，我一定要去看看！對了，我叫 Alex。</div>
+            </div>
+          </div>
+          <div class="tip-box">
+            <strong>🗣 口說小技巧</strong>
+            <p>讚美不只是「給好感」，它是打開對話的鑰匙！一個真誠的讚美 + 一個追問，往往能展開一段精彩的對話，甚至交到新朋友。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-prompt">
+      <h4>🎯 開口練習題</h4>
+      <ul>
+        <li>練習給3種不同類型的讚美：外觀、能力、個性，各造一個句子。</li>
+        <li>如果有人稱讚你的英文，用英文自然地回應（不要說 "No, no, my English is bad"！）</li>
+        <li>想一個讚美，再加上一個問題，試試看能不能讓對話繼續5句以上。</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTopic(topic) {
+    document.querySelectorAll('.topic-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('topic-' + topic).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
